@@ -1,0 +1,54 @@
+{% extends 'home_index.html' %}
+{% block body %}
+
+<body>
+<form action="/myapp/adm_view_ambulance_post/#about" method="post">
+    <table class="px fa-pull-left">
+    {% csrf_token %}
+  <tr>
+    <td><input type="text" class="form-control" required name="textfield" id="textfield" /></td>
+    <td><input type="submit" name="button" id="button" class="btn btn-success" value="Search" /></td>
+  </tr>
+</table>
+  <table class="table table-bordered table-striped">
+    <tr>
+      <td>S/no</td>
+      <td>Name</td>
+         <td>gender</td>
+      <td>dob</td>
+      <td>Contact</td>
+      <td>Vehicle</td>
+     <td>Proof</td>
+{#      <td>Phone</td>#}
+      <td>Address</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+
+      {% for i in data %}
+
+
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td><center><img src="{{ i.photo }}" height="80px" width="80px"><br>  {{ i.name }}</center></td>
+        <td>&nbsp;{{ i.gender }}</td>
+      <td>{{ i.dob }}</td>
+      <td>{{ i.email }}<br>
+      {{ i.phone }}</td>
+      <td><center><img src="{{i.vphoto  }}" height="80px" width="80px"> <br>
+          {{ i.vreg_no }}</center>
+      </td>
+        <td><a href="{{ i.proof }}" class="btn btn-warning" >Download</a></td>
+{#      <td>{{ i.phone }}</td>#}
+      <td>{{ i.place }}<br>{{ i.post }}<br>{{i.pin  }}<br>{{ i.district }}<br></td>
+      <td><a href="/myapp/adm_approve_ambulance/{{ i.LOGIN.id }}" class="btn btn-info" >Approve</a></td>
+      <td><a href="/myapp/adm_reject_ambulance/{{ i.LOGIN.id }}" class="btn btn-danger" >Reject</a></td>
+    </tr>
+            {% endfor %}
+
+  </table>
+
+
+</form>
+</body>
+{% endblock %}
